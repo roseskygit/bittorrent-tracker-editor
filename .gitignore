@@ -6,4 +6,6 @@
 
 #items in these folder should be added explicit
 /enduser
-/source
+
+# ignore backup file
+*.bak
