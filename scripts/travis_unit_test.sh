@@ -14,10 +14,16 @@ then
   #windows
   enduser/tracker_editor_test.exe -a --format=plain
 
+  # Will exit with status of last command.
+  exit
+
   else
 
   #linux
   enduser/tracker_editor_test -a --format=plain
+
+  # Will exit with status of last command.
+  exit
 
   fi
 
@@ -29,7 +35,8 @@ then
   #start the unit test
   tracker_editor_test -a --format=plain
 
-  cd ..
+  # Will exit with status of last command.
+  exit
 
 fi
 
