@@ -14,7 +14,8 @@ os:
 
 env:
   global:
-    - LPIEDITORPATH=source/project/tracker_editor
+    - LPI_EDITOR_PATH=source/project/tracker_editor
+    - LPI_UNIT_TEST_PATH=source/project/unit_test
     - WINEPREFIX=~/.winelaz
     - DISPLAY=:99.0
   matrix:	#For linux and mac osx build
@@ -26,15 +27,22 @@ matrix:		#For windows build with linux wine. Use the same lazarus version as lin
       env: LAZ_VER=1.6  LAZ_ENV=wine WINEARCH=win32 LAZ_OPT="--os=win32 --cpu=i386"
 
 before_install:
-    # Start virtual display server
+# Start virtual display server
   - sh -e /etc/init.d/xvfb start || true
 
 install:
-    # Install prerequisites (fpc/lazarus/wine/qemu)
+# Install prerequisites (fpc/lazarus/wine/qemu)
   - ./travis-lazarus/.travis.install.py
 
 script:
-  - lazbuild $LAZ_OPT $LPIEDITORPATH/trackereditor.lpi      # Build trackereditor project
+# Build trackereditor project
+  - lazbuild $LAZ_OPT $LPI_EDITOR_PATH/trackereditor.lpi
+
+# Build unit test project
+  - lazbuild $LAZ_OPT $LPI_UNIT_TEST_PATH/tracker_editor_test.lpi
+
+# Start the unit test
+  - source ./scripts/travis_unit_test.sh
 
 before_deploy:
   - source ./scripts/travis_deploy.sh
