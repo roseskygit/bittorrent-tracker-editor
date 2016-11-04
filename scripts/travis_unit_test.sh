@@ -30,10 +30,7 @@ then
 elif [ "$TRAVIS_OS_NAME" = "osx" ]
 then
   #macOS
-  cd enduser
-
-  #start the unit test
-  tracker_editor_test -a --format=plain
+  enduser/tracker_editor_test -a --format=plain
 
   # Will exit with status of last command.
   exit
